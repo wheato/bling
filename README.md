@@ -43,7 +43,7 @@ Coming soon...
       userImgUrl: 用户头像图片url
     },
     snapImgId: 阅后即焚图片id，即图片的微信服务器端的serverId
-    snapImgUrl: 阅后即焚图片url，当后台从微信服务器下载图片后生成；若为空，前端根据snapImgId下载图片
+    snapImgUrl: 阅后即焚图片url，后台从微信服务器下载图片后更新；若为空，前端根据snapImgId下载图片
     isSnapLuck: true //是否中彩蛋，后台随机判断返回结果
   }
 ```
