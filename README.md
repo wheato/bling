@@ -8,6 +8,13 @@ Coming soon...
 请求参数
   - `imgId` : 图片的微信服务器端的serverId，后台可通过此Id下载图片来更新snapImgUrl，必须
   - `imgSet` : 为求简单与扩展性，图片配置信息都存在这Object对象，包括图片显示时间，可看人数，彩蛋类型等
+```
+  {
+    timeLimit: 可看秒数，默认5
+    countLimit: 可看人数, 默认20
+    snapLuckType: 彩蛋类型，默认'normal'
+  }
+```
   
 返回
   - `code` : 默认 0 为成功，其他返回对应错误码
