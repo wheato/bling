@@ -76,7 +76,13 @@ table {
 .logo-text img{
     width: 100%;
 }
+.looktips{
+    opacity: 0;
+}
 
+.bling-start .looktips{
+    opacity: 1;
+}
 
 
 
