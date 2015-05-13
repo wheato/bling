@@ -1,0 +1,15 @@
+{
+  "code": 0,
+  "data": {
+    "snapId": 10000,
+    "snapAuthor": {
+      "uid": 1,
+      "nickname": "weishai",
+      "userImgUrl": "../img/test.jpg"
+    },
+    "snapImgId": "snapImgId",
+    "snapImgUrl": "../img/test.jpg",
+    "snapShowTime": 5,
+    "isSnapLuck": true
+  }
+}

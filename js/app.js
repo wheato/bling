@@ -1,11 +1,15 @@
-//Bling app.js by weishai
+// Bling app.js by weishai
 
 var Config = {
   API: {
-    createSnap: 'api/create_snap',
-    getSnap: 'api/create_snap'
+    createSnap: 'api/create_snap.json',
+    getSnap: 'api/get_snap.json'
   }
 }
+
+//debug
+Config.API.createSnap = '../test/api/create_snap.json'
+Config.API.getSnap = '../test/api/get_snap.json'
 
 var Bling = function () {
   
@@ -19,7 +23,10 @@ Bling.prototype.init = function () {
   this.render()
 }
 
-Bling.prototype.getSnapId = function () {}
+Bling.prototype.getSnapId = function () {
+  //Todo: get from url
+  return 'test'
+}
 
 Bling.prototype.showSnap = function (cb) {
   var self = this
@@ -31,7 +38,7 @@ Bling.prototype.showSnap = function (cb) {
     .one('touchstart', function(e) {
       var autoHideSet = null
 
-      showSnapImg(snapData.snapShowTime)
+      showSnapImg(snapData.snapImgUrl, snapData.snapShowTime)
 
       $body.one('touchend', function (et) {
         hideSnapImg(cb)
@@ -40,14 +47,15 @@ Bling.prototype.showSnap = function (cb) {
 
       autoHideSet = setTimeout(function(){
         hideSnapImg(cb)
-      }, snapData.snapShowTime)
+      }, snapData.snapShowTime * 1000)
 
       e.preventDefault()
     })
 
-  function showSnapImg(time) {
+  function showSnapImg(url, time) {
+    console.log('bling-showimg')
     $body.addClass('bling-showimg')
-
+      .find('#snapImg').attr('src', url)
     return true
   }
 
@@ -56,7 +64,7 @@ Bling.prototype.showSnap = function (cb) {
       return
     }
     $body.addClass('bling-hideimg')
-      .removeClass('bling-showimg')
+      // .removeClass('bling-showimg')
 
     isHideImg = true
     cb && cb()
@@ -76,6 +84,10 @@ Bling.prototype.render = function () {
   }
 
   $.post(Config.API.getSnap, {snapId: curSnapId}, function(data) {
+    //debug
+    console.log(data)
+    // data = JSON.parse(data)
+
     switch(data.code) {
       case 1001:
         console.log('该用户已看过')
@@ -85,7 +97,7 @@ Bling.prototype.render = function () {
         break
       case 0:
         self.data.snap = data.data
-        self.showSnap(data.data, function () {
+        self.showSnap(function () {
           self.showSnapLuck()
         })
         break
@@ -93,5 +105,29 @@ Bling.prototype.render = function () {
         console.log('sys error')
         break
     }
-  })
+  }, 'json')
 }
+
+var App = new Bling()
+App.init()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

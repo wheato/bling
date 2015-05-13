@@ -57,7 +57,7 @@ table {
 
 /* App Style
  *--------------------------------------------------------------*/
-/* Page Start*/
+/* Page Start */
 .logo{
     margin: 0 auto;
     padding-top: 86px;
@@ -82,8 +82,24 @@ table {
 
 .bling-start .looktips{
     opacity: 1;
+    text-align: center;
+    margin: 20%;
+    color: #9385B8;
 }
 
+.bling-showimg .page-start{
+    display: none;
+}
+
+/* page-showimg */
+.page-showimg .img-wrap{}
+.page-showimg .img-wrap > img{
+    max-width: 100%;
+}
+
+.bling-hideimg .page-showimg{
+    display: none;
+}
 
 
 
