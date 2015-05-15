@@ -75,9 +75,11 @@ Bling.prototype.showSnapLuck = function () {
   var self = this
     , snapData = this.data.snap
 
-  if(snapData.isSnapLuck){
-    
+  if(!snapData.isSnapLuck){
+    return
   }
+
+  $('body').addClass('bling-upload')
 }
 
 Bling.prototype.render = function () {

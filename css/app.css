@@ -101,6 +101,59 @@ table {
     display: none;
 }
 
+.page-upload{
+    display: none;
+}
+.page-upload .snapluck{
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    left: 0;
+    top: 20%;
+    font-size: 30px;
+}
+.page-upload .snapluck-type{
+    color: #cba200;
+}
+.page-upload .snapluck-tips{
+    color: #cba200;
+    font-size: 12px;
+    line-height: 34px;
+}
+.page-upload .snapluck-tips .author{
+    display: inline-block;
+    margin: 0 3px;
+}
+.page-upload .btn-camera{
+    position: absolute;
+    background: url(../img/icon-camera.png) no-repeat 0;
+    width: 98px;
+    height: 98px;
+    background-size: 100%;
+    top: 50%;
+    left: 50%;
+    margin: -49px 0 0 -49px;
+}
+.page-upload .btn-miniabout{}
+.page-upload .logo-footer{
+    position: absolute;
+    width: 49px;
+    height: 27px;
+    background: url(../img/logo-text-mini.png) no-repeat 0 0;
+    background-size: 100%;
+    bottom: 20px;
+    left: 50%;
+    margin: 0 0 0 -24px;
+}
+
+.bling-upload{
+    background: #000;
+    
+}
+.bling-upload .page-upload{
+    display: block;
+}
+
 
 
 
