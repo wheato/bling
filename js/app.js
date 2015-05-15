@@ -80,6 +80,14 @@ Bling.prototype.showSnapLuck = function () {
   }
 
   $('body').addClass('bling-upload')
+    .on('touchstart', '[data-upload]', function(e) {
+      self.choseImg()
+      e.preventDefault()
+    })
+}
+
+Bling.prototype.choseImg = function () {
+  $('.page-upload').addClass('page-upload-ready')
 }
 
 Bling.prototype.render = function () {

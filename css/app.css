@@ -154,6 +154,11 @@ table {
     display: block;
 }
 
+.page-upload-ready .btn-camera{
+    display: none;
+}
+.page-upload-ready .btn-camera{}
+
 
 
 
