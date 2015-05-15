@@ -72,7 +72,12 @@ Bling.prototype.showSnap = function (cb) {
 }
 
 Bling.prototype.showSnapLuck = function () {
-  
+  var self = this
+    , snapData = this.data.snap
+
+  if(snapData.isSnapLuck){
+    
+  }
 }
 
 Bling.prototype.render = function () {
