@@ -53,7 +53,6 @@ Bling.prototype.showSnap = function (cb) {
     })
 
   function showSnapImg(url, time) {
-    console.log('bling-showimg')
     $body.addClass('bling-showimg')
       .find('#snapImg').attr('src', url)
 
