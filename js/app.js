@@ -2,14 +2,16 @@
 
 var Config = {
   API: {
-    createSnap: 'api/create_snap.json',
-    getSnap: 'api/get_snap.json'
+    createSnap: 'http://bling.treedom.cn/ajax/api/create_snap／',
+    getSnap: 'http://bling.treedom.cn/ajax/api/get_snap/',
+    getWxSign: 'http://bling.treedom.cn/ajax/weixin/sign',
+    getAuth: 'http://bling.treedom.cn/ajax/weixin/getAuth/'
   }
 }
 
 //debug
-Config.API.createSnap = '../test/api/create_snap.json'
-Config.API.getSnap = '../test/api/get_snap.json'
+// Config.API.createSnap = '../test/api/create_snap.json'
+// Config.API.getSnap = '../test/api/get_snap.json'
 
 var Bling = function () {
   
@@ -25,7 +27,7 @@ Bling.prototype.init = function () {
 
 Bling.prototype.getSnapId = function () {
   //Todo: get from url
-  return 'test'
+  return getUrlParam('testimg')
 }
 
 Bling.prototype.showSnap = function (cb) {
@@ -67,6 +69,7 @@ Bling.prototype.showSnap = function (cb) {
     $body.addClass('bling-hideimg')
       // .removeClass('bling-showimg')
 
+    $('#countDown').hide()
     isHideImg = true
     cb && cb()
   }
@@ -81,10 +84,7 @@ Bling.prototype.showSnapLuck = function () {
   }
 
   $('body').addClass('bling-upload')
-    .on('touchstart', '[data-upload]', function(e) {
-      self.choseImg()
-      e.preventDefault()
-    })
+
 }
 
 Bling.prototype.countDown = function (percent, time) {
@@ -100,7 +100,6 @@ Bling.prototype.countDown = function (percent, time) {
   $countDown = $('#countDown')
   $countDown.addClass('countDown-show')
   draw(percent, time)
-  console.log(time)
   
   function init(){
     // ctx.clearRect(0,0,W,H);
@@ -143,11 +142,52 @@ Bling.prototype.countDown = function (percent, time) {
   }
   //re_loop = setInterval(draw,2000);
 }
-Bling.prototype.choseImg = function () {
-  var imgId = '../img/test.jpg'
 
-  $('.page-upload').addClass('page-upload-ready')
-  $('#Preview').attr('src', imgId)
+Bling.prototype.choseImg = function () {
+  var self = this
+    // , imgId = '../img/test.jpg'
+
+  wx.chooseImage({
+    success: function (res) {
+      self.data.uploadImgId = res.localIds
+      $('.page-upload').addClass('page-upload-ready')
+      $('#Preview').attr('src', res.localIds)
+    }
+  })
+}
+
+Bling.prototype.submitImg = function () {
+  var self = this
+    , postData = {}
+
+  postData.imgId = this.data.uploadImgId
+  if(!postData.imgId){
+    alert('还没选择图片')
+  }
+  $.get(Config.API.createSnap+postData.imgId, function (res) {
+    if(res.code == 0){
+      alert('提交成功，可以分享了')
+    }
+    else {
+      alert('提交失败，稍后再试')
+    }
+  })
+}
+
+Bling.prototype.bindEvent = function () {
+  var self = this
+
+  $('body')
+    .on('touchstart', '[data-upload]', function(e) {
+      self.choseImg()
+      e.preventDefault()
+    })
+
+  $('#submitImg').on('touchstart', function (e) {
+    self.submitImg()
+    e.preventDefault()
+  })
+
 }
 
 Bling.prototype.render = function () {
@@ -158,16 +198,18 @@ Bling.prototype.render = function () {
     return false
   }
 
-  $.post(Config.API.getSnap, {snapId: curSnapId}, function(data) {
+  $.get(Config.API.getSnap+curSnapId, function(data) {
     //debug
-    console.log(data)
+    // console.log(data)
     // data = JSON.parse(data)
-
+    console.log(data)
     switch(data.code) {
       case 1001:
+        alert('该用户已看过')
         console.log('该用户已看过')
         break
       case 1002:
+        alert('超过可看人数')
         console.log('超过可看人数')
         break
       case 0:
@@ -180,11 +222,117 @@ Bling.prototype.render = function () {
         console.log('sys error')
         break
     }
-  }, 'json')
+  })
 }
 
+checkLogin()
 var App = new Bling()
 App.init()
+
+$.get(Config.API.getWxSign, function (res) {
+  if(res.code == 0){
+    wx.config({
+      debug: false,
+      appId: 'wx875c7888a7aef3f7',
+      timestamp: res.timestamp,
+      nonceStr: res.nonceStr,
+      signature: res.signature,
+      jsApiList: [
+        'checkJsApi',
+        'onMenuShareTimeline',
+        'onMenuShareAppMessage',
+        'onMenuShareQQ',
+        'onMenuShareWeibo',
+        'hideMenuItems',
+        'showMenuItems',
+        'hideAllNonBaseMenuItem',
+        'showAllNonBaseMenuItem',
+        'translateVoice',
+        'startRecord',
+        'stopRecord',
+        'onRecordEnd',
+        'playVoice',
+        'pauseVoice',
+        'stopVoice',
+        'uploadVoice',
+        'downloadVoice',
+        'chooseImage',
+        'previewImage',
+        'uploadImage',
+        'downloadImage',
+        'getNetworkType',
+        'openLocation',
+        'getLocation',
+        'hideOptionMenu',
+        'showOptionMenu',
+        'closeWindow',
+        'scanQRCode',
+        'chooseWXPay',
+        'openProductSpecificView',
+        'addCard',
+        'chooseCard',
+        'openCard'
+      ]
+    })
+  }
+})
+
+wx.ready(function(){
+  Config.isWeixinOk = true
+})
+
+// function checkLogin() {
+//   var bling_uid = getCookie('bling_uid')
+//     , code = getUrlParam('code')
+//   if(!bling_uid){
+//     if(code){
+//       $.get(Config.API.getAuth+code, function (res) {
+//         if(res.code == 0){
+//           setCookie('bling_uid', res.data.uid)
+//         }
+//       })
+//       return true
+//     }
+//     else{
+//       location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx875c7888a7aef3f7&redirect_uri=http%3A%2F%2Fbling.treedom.cn%2Findex.html&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
+//     }
+//     return false
+//   }
+//   return true
+// }
+
+function checkLogin() {
+  setCookie('bling_uid', 'o17b6s0pEDbINiypV2H0rlml5OAs')
+}
+
+function setCookie(c_name,value,expiredays){
+  var exdate=new Date()
+  exdate.setDate(exdate.getDate()+expiredays)
+  document.cookie=c_name+ "=" +escape(value)+
+  ((expiredays==null) ? "" : ";expires="+exdate.toGMTString())
+}
+
+function getCookie(c_name){
+if (document.cookie.length>0)
+  {
+  c_start=document.cookie.indexOf(c_name + "=")
+  if (c_start!=-1)
+    { 
+    c_start=c_start + c_name.length+1 
+    c_end=document.cookie.indexOf(";",c_start)
+    if (c_end==-1) c_end=document.cookie.length
+    return unescape(document.cookie.substring(c_start,c_end))
+    } 
+  }
+return ""
+}
+
+function getUrlParam(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
 
 
 
