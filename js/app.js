@@ -56,6 +56,8 @@ Bling.prototype.showSnap = function (cb) {
     console.log('bling-showimg')
     $body.addClass('bling-showimg')
       .find('#snapImg').attr('src', url)
+
+    self.countDown(1, time*1000)
     return true
   }
 
@@ -86,8 +88,67 @@ Bling.prototype.showSnapLuck = function () {
     })
 }
 
+Bling.prototype.countDown = function (percent, time) {
+  var canvas = document.getElementById('countDown');
+  var ctx = canvas.getContext("2d");
+  var W = canvas.width;
+  var H = canvas.height;
+  var R = H/2.5;
+  var deg=0,new_deg=0,dif=0;
+  var loop,re_loop;
+  var text,text_w;
+
+  $countDown = $('#countDown')
+  $countDown.addClass('countDown-show')
+  draw(percent, time)
+  console.log(time)
+  
+  function init(){
+    // ctx.clearRect(0,0,W,H);
+    // ctx.beginPath();
+    // ctx.strokeStyle="rgba(0,0,0,0)";
+    // ctx.lineWidth=1;
+    // ctx.arc(W/2,H/2,R,0,Math.PI*2,false);
+    // ctx.stroke();
+    
+    var r = deg*Math.PI/180;
+    ctx.beginPath();
+    ctx.strokeStyle = "#cba200";
+    ctx.lineWidth=1;
+    ctx.arc(W/2,H/2,R,0-90*Math.PI/180,r-90*Math.PI/180,false);
+    ctx.stroke();
+    
+    // ctx.fillStyle="#cba200";
+    // ctx.font="12px";
+    // text = Math.floor(deg/360*100)+"%";
+    // text_w = ctx.measureText(text).width;
+    // ctx.fillText(text,W/2 - text_w/2,H/2+15);
+  }
+  function draw(p, t){
+    //new_deg = Math.round(Math.random()*360);
+    new_deg = Math.round(p*360);
+    dif = new_deg-deg;
+    loop = setInterval(to,t/dif);
+  }
+  function to(){
+    if(deg == new_deg){
+      clearInterval(loop);
+      $countDown.remove()
+    }
+    if(deg<new_deg){
+      deg++;
+    }else{
+      deg--;
+    }
+    init();
+  }
+  //re_loop = setInterval(draw,2000);
+}
 Bling.prototype.choseImg = function () {
+  var imgId = '../img/test.jpg'
+
   $('.page-upload').addClass('page-upload-ready')
+  $('#Preview').attr('src', imgId)
 }
 
 Bling.prototype.render = function () {

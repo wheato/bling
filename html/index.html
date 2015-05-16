@@ -26,37 +26,46 @@
     </div>
     <div class="page-snapluck"></div>
     <div class="page-upload">
-      <div class="upload-before">
-        <div class="snapluck">
-          <div class="snapluck-type">挖鼻孔</div>
-          <div class="snapluck-tips">接受<span class="author">weishai</span>的挑战</div>
+      <div class="preview"><img id="Preview"></div>
+      <div class="cover">
+        <div class="upload-before">
+          <div class="snapluck">
+            <div class="snapluck-type">挖鼻孔</div>
+            <div class="snapluck-tips">接受<span class="author">weishai</span>的挑战</div>
+          </div>
+          <div class="btn-camera" data-upload></div>
         </div>
-        <div class="btn-camera"></div>
-      </div>
-      <div class="upload-select">
-        <div class="select-snapluck"></div>
-        <div class="option-snapluck">
-          <div class="btn-option option-time">
-            <span class="num"></span>
-            <span class="name"></span>
+        <div class="upload-select">
+          <div class="select-snapluck">
+            <div class="select-box">
+              <span class="snapluck-value">挖鼻孔</span>
+            </div>
+            <div class="select-box-tips">埋彩蛋</div>
           </div>
-          <div class="partline"><i class="icon-x"></i></div>
-          <div class="btn-option option-count">
-            <span class="num"></span>
-            <span class="name"></span>
+          <div class="option-snapluck">
+            <div class="btn-option option-time">
+              <span class="num">5</span>
+              <span class="name">时间</span>
+            </div>
+            <div class="partline"><i class="icon-x"></i></div>
+            <div class="btn-option option-count">
+              <span class="num">20</span>
+              <span class="name">次数</span>
+            </div>
           </div>
+          <form class="form-upload">
+            <div class="input-wrap">
+              <div class="btn-base">重新上传</div>
+              <div class="btn-base btn-submit">确定提交</div>
+            </div>
+          </form>
         </div>
-        <form class="form-upload">
-          <div class="input-wrap">
-            <div class="btn-base">重新上传</div>
-            <div class="btn-base">确定提交</div>
-          </div>
-        </form>
+        <div class="btn-miniabout"></div>
+        <div class="logo-footer"></div>
       </div>
-      <div class="btn-miniabout"></div>
-      <div class="logo-footer"></div>
     </div>
   </div>
+  <canvas id="countDown" width="88" height="88" style="margin: 0 0 0 -44px;"></canvas>
   <script type="text/javascript" src="../js/zepto.min.js"></script>
   <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
   <script type="text/javascript" src="../js/app.js"></script>
