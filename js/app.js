@@ -2,7 +2,7 @@
 
 var Config = {
   API: {
-    createSnap: 'http://bling.treedom.cn/ajax/api/create_snap／',
+    createSnap: 'http://bling.treedom.cn/ajax/api/create_snap/',
     getSnap: 'http://bling.treedom.cn/ajax/api/get_snap/',
     getWxSign: 'http://bling.treedom.cn/ajax/weixin/sign',
     getAuth: 'http://bling.treedom.cn/ajax/weixin/getAuth/'
@@ -11,7 +11,7 @@ var Config = {
 
 //debug
 // Config.API.createSnap = '../test/api/create_snap.json'
-// Config.API.getSnap = '../test/api/get_snap.json'
+Config.API.getSnap = 'test/api/get_snap.json'
 
 var Bling = function () {
   
@@ -27,7 +27,7 @@ Bling.prototype.init = function () {
 
 Bling.prototype.getSnapId = function () {
   //Todo: get from url
-  return getUrlParam('testimg')
+  return getUrlParam('snapimg')
 }
 
 Bling.prototype.showSnap = function (cb) {
@@ -156,6 +156,16 @@ Bling.prototype.choseImg = function () {
   })
 }
 
+Bling.prototype.loading = function (cb) {
+  var self = this
+    , $loading = $('#Loading')
+  $loading.show()
+  setTimeout(function () {
+    $loading.addClass('loading-on')
+  }, 0)
+  cb && cb($loading)
+}
+
 Bling.prototype.submitImg = function () {
   var self = this
     , postData = {}
@@ -194,9 +204,9 @@ Bling.prototype.render = function () {
   var self = this
     , curSnapId = this.getSnapId()
 
-  if(!curSnapId){
-    return false
-  }
+  // if(!curSnapId){
+  //   return false
+  // }
 
   $.get(Config.API.getSnap+curSnapId, function(data) {
     //debug
@@ -214,15 +224,16 @@ Bling.prototype.render = function () {
         break
       case 0:
         self.data.snap = data.data
-        self.showSnap(function () {
-          self.showSnapLuck()
-        })
+        self.loading()
+        // self.showSnap(function () {
+        //   self.showSnapLuck()
+        // })
         break
       default:
         console.log('sys error')
         break
     }
-  })
+  }, 'json')
 }
 
 checkLogin()
@@ -289,6 +300,7 @@ wx.ready(function(){
 //       $.get(Config.API.getAuth+code, function (res) {
 //         if(res.code == 0){
 //           setCookie('bling_uid', res.data.uid)
+//           alert(JSON.stringify(res.data))
 //         }
 //       })
 //       return true
@@ -302,7 +314,7 @@ wx.ready(function(){
 // }
 
 function checkLogin() {
-  setCookie('bling_uid', 'o17b6s0pEDbINiypV2H0rlml5OAs')
+  setCookie('bling_uid', 'o17b6s4BVxHPN5hGdAaTUspsKVC4')
 }
 
 function setCookie(c_name,value,expiredays){
