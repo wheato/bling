@@ -165,21 +165,43 @@ Bling.prototype.choseImg = function() {
 }
 
 Bling.prototype.loading = function(cb) {
-  var self = this,
-    $loading = $('#Loading')
-  $loading.show()
-  setTimeout(function() {
-    $loading.addClass('loading-on')
-  }, 0)
-  cb && cb($loading)
+  var self = this
+    , $loading = $('#Loading')
+    , snap = self.data.snap
+    , delay = 0
+
+  if (!(snap.snapImgUrl && /http/.test(snap.snapImgUrl)) && snap.snapImgUrl.length > 4){
+    // alert('begin wx load img')
+    if(!Config.isWeixinOk){
+      delay = 500
+    }
+    setTimeout(function () {
+      wx.downloadImage({
+        serverId: snap.snapImgId,
+        isShowProgressTips: 1, // 默认为1，显示进度提示
+        success: function (res) {
+          // alert('img load end')
+          snap.snapImgUrl = res.localId
+          cb && cb($loading)
+        }
+      })
+    }, delay)
+  }
+  else {
+    $loading.show()
+    setTimeout(function() {
+      $loading.addClass('loading-on')
+    }, 0)
+    cb && cb($loading)
+  }
 }
 
 Bling.prototype.submitImg = function() {
-  var self = this
-    , localImgId
+  var self = this,
+    localImgId
 
   localImgId = self.data.localImgId[0]
-  // alert(localImgId)
+    // alert(localImgId)
   if (!localImgId) {
     alert('还没选择图片')
     return false
@@ -203,8 +225,8 @@ Bling.prototype.submitImg = function() {
 }
 
 Bling.prototype.updateShare = function() {
-  var self = this
-    , shareUrl
+  var self = this,
+    shareUrl
   shareUrl = Config.site + '?snapimg=' + self.data.curShareId
   wx.onMenuShareAppMessage({
     title: 'bling', // 分享标题
@@ -213,15 +235,15 @@ Bling.prototype.updateShare = function() {
     imgUrl: '', // 分享图标
     // type: '', // 分享类型,music、video或link，不填默认为link
     // dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
-    success: function () {
-        // 用户确认分享后执行的回调函数
-        alert('已分享给朋友')
+    success: function() {
+      // 用户确认分享后执行的回调函数
+      alert('已分享给朋友')
     },
-    cancel: function () { 
+    cancel: function() {
       alert('取消分享朋友')
         // 用户取消分享后执行的回调函数
     }
-});
+  });
 }
 
 Bling.prototype.bindEvent = function() {
@@ -272,9 +294,10 @@ Bling.prototype.render = function() {
         break
       case 0:
         self.data.snap = data.data
-        self.loading()
-        self.showSnap(function() {
-          self.showSnapLuck()
+        self.loading(function () {
+          self.showSnap(function() {
+            self.showSnapLuck()
+          })
         })
         break
       default:
@@ -296,7 +319,7 @@ $.get(Config.API.getWxSign, function(res) {
   // alert(JSON.stringify(res))
   if (res.timestamp) {
     wx.config({
-      debug: true,
+      debug: false,
       appId: 'wx875c7888a7aef3f7',
       timestamp: res.timestamp,
       nonceStr: res.noncestr,
@@ -352,20 +375,24 @@ wx.ready(function() {
 })
 
 function checkLogin(cb) {
-  var bling_uid = getCookie('bling_uid'),
-    code = getUrlParam('code')
+  var bling_uid = getCookie('bling_uid')
+    , code = getUrlParam('code')
+    , param = getUrlParam('snapimg') || ''
   if (!bling_uid) {
     if (code) {
       $.get(Config.API.getAuth + code, function(res) {
         if (res.code == 0) {
           setCookie('bling_uid', res.data.uid)
-          // alert(JSON.stringify(res.data))
+            // alert(JSON.stringify(res.data))
           cb && cb()
         }
       })
       return true
     } else {
-      location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx875c7888a7aef3f7&redirect_uri=http%3A%2F%2Fbling.treedom.cn%2Findex.html&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
+      if(param){
+        param = '?snapimg=' + param
+      }
+      location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx875c7888a7aef3f7&redirect_uri=http%3A%2F%2Fbling.treedom.cn%2Findex.html'+param+'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
     }
     return false
   }
