@@ -83,6 +83,7 @@ Bling.prototype.showSnapLuck = function() {
   // if(!snapData.isSnapLuck){
   //   return
   // }
+  $('.snapluck-tips .author').html(snapData.snapAuthor.nickname)
 
   $('body').addClass('bling-upload')
 
@@ -400,10 +401,10 @@ function checkLogin(cb) {
   return true
 }
 
-// function checkLogin(cb) {
-//   setCookie('bling_uid', 'o17b6s4BVxHPN5hGdAaTUspsKVC4')
-//   cb && cb()
-// }
+function checkLogin(cb) {
+  setCookie('bling_uid', 'o17b6s4BVxHPN5hGdAaTUspsKVC4')
+  cb && cb()
+}
 
 function setCookie(c_name, value, expiredays) {
   var exdate = new Date()

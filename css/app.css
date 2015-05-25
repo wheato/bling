@@ -51,8 +51,7 @@ table {
     height: 100%;
  }
  body{
-    background: -webkit-linear-gradient(top, #8c34ef 0%, #6534ef 100%);
-    background: linear-gradient(to bottom, #8c34ef 0%, #6534ef 100%);
+    background: -webkit-linear-gradient(top, #6534ef 0%, #8c34ef 100%);
  }
 
 /* App Style
@@ -337,6 +336,42 @@ color: #000;
 .page-upload-ready .upload-select{
     display: block;
 }
+
+/* nolook */
+.nolook{
+    display: none;
+}
+.nolook-tips{
+    text-align: center;
+    font-size: 25px;
+    color: #fff;
+    margin-top: 85px;
+}
+.nolook .userbox{}
+.nolook .userbox-title{
+    font-size: 12px;
+    text-align: center;
+    color: #fff;
+    margin: 60px 0 27px;
+}
+.userbox-list{
+    text-align: left;
+    font-size: 0;
+    width: 312px;
+    margin: 0 auto;
+}
+.userbox-list .item{
+    width: 52px;
+    height: 52px;
+    display: inline-block;
+    margin: 0 25px 25px;
+}
+.userbox-list .item > img{
+    display: block;
+    width: 100%;
+}
+
+。bling-nolook{}
 
 
 
