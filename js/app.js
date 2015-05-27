@@ -2,6 +2,7 @@
 
 var Config = {
   site: 'http://bling.treedom.cn/',
+  cdnDir: 'http://bling.treedom.cn/upload/',
   API: {
     createSnap: 'http://bling.treedom.cn/ajax/api/create_snap/',
     getSnap: 'http://bling.treedom.cn/ajax/api/get_snap/',
@@ -13,6 +14,11 @@ var Config = {
 //debug
 // Config.API.createSnap = '../test/api/create_snap.json'
 // Config.API.getSnap = 'test/api/get_snap.json'
+// $('body').addClass('bling-start bling-showimg bling-hideimg')
+// setTimeout(function () {
+//   $('body').addClass('bling-upload')
+// }, 500)
+
 
 var Bling = function() {
 
@@ -272,6 +278,13 @@ Bling.prototype.render = function() {
     return false
   }
 
+// console.log(Config.cdnDir + 's_'+ curSnapId +'.jpg')
+// console.log($('.page-start .cover'))
+//   $('.page-start .cover').css({backgroundImage: 'url('+Config.cdnDir + 's_'+ curSnapId +'.jpg)'})
+  // $('.page-start .cover').css({backgroundImage: test})
+  // console.log($('.page-start .cover').length)
+  // $('.page-start .cover').css({height: 'auto'})
+
   $.get(Config.API.getSnap + curSnapId, function(data) {
     //debug
     // console.log(data)
@@ -286,7 +299,9 @@ Bling.prototype.render = function() {
     console.log(data)
     switch (data.code) {
       case 1001:
-        alert('该用户已看过')
+        // alert('该用户已看过')
+        $('body').addClass('bling-nolook')
+        // $('.page-start .cover').css({backgroundImage: 'url('+Config.cdnDir + 's_'+ curSnapId +'.jpg)'})
         console.log('该用户已看过')
         break
       case 1002:
@@ -294,6 +309,7 @@ Bling.prototype.render = function() {
         console.log('超过可看人数')
         break
       case 0:
+        $('.page-start .cover').css({backgroundImage: 'url('+Config.cdnDir + 's_'+ curSnapId +'.jpg)'})
         self.data.snap = data.data
         self.loading(function () {
           self.showSnap(function() {
@@ -401,10 +417,10 @@ function checkLogin(cb) {
   return true
 }
 
-function checkLogin(cb) {
-  setCookie('bling_uid', 'o17b6s4BVxHPN5hGdAaTUspsKVC4')
-  cb && cb()
-}
+// function checkLogin(cb) {
+//   setCookie('bling_uid', 'o17b6s4BVxHPN5hGdAaTUspsKVC4')
+//   cb && cb()
+// }
 
 function setCookie(c_name, value, expiredays) {
   var exdate = new Date()
