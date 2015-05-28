@@ -17,7 +17,7 @@ var Config = {
 // $('body').addClass('bling-start bling-showimg bling-hideimg')
 // setTimeout(function () {
 //   $('body').addClass('bling-upload')
-// }, 500)
+// }, 5000)
 
 
 var Bling = function() {
@@ -417,10 +417,10 @@ function checkLogin(cb) {
   return true
 }
 
-// function checkLogin(cb) {
-//   setCookie('bling_uid', 'o17b6s4BVxHPN5hGdAaTUspsKVC4')
-//   cb && cb()
-// }
+function checkLogin(cb) {
+  setCookie('bling_uid', 'o17b6s4BVxHPN5hGdAaTUspsKVC4')
+  cb && cb()
+}
 
 function setCookie(c_name, value, expiredays) {
   var exdate = new Date()
