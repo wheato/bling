@@ -1,15 +1,39 @@
 {
-  "code": 0,
+  "code": 1001,
   "data": {
     "snapId": 10000,
     "snapAuthor": {
       "uid": 1,
-      "nickname": "weishai",
-      "userImgUrl": "../img/test.jpg"
+      "nickname": "test name",
+      "userImgUrl": "img/test.jpg"
     },
     "snapImgId": "snapImgId",
-    "snapImgUrl": "../img/test.jpg",
+    "snapImgUrl": "img/http.jpg",
     "snapShowTime": 5,
-    "isSnapLuck": true
+    "isSnapLuck": true,
+    "visitors": [
+      {
+        "uid": 1,
+        "nickname": "test",
+        "userImgUrl": "img/user.png"
+      },
+      {
+        "uid": 1,
+        "nickname": "test",
+        "userImgUrl": "img/user.png"
+      }
+    ],
+    "luckyVisitors":[
+      {
+        "uid": 1,
+        "nickname": "test",
+        "userImgUrl": "img/user.png"
+      },
+      {
+        "uid": 1,
+        "nickname": "test",
+        "userImgUrl": "img/user.png"
+      }
+    ]
   }
 }

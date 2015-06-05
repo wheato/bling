@@ -13,11 +13,13 @@ var Config = {
 
 //debug
 // Config.API.createSnap = '../test/api/create_snap.json'
-// Config.API.getSnap = 'test/api/get_snap.json'
-// $('body').addClass('bling-start bling-showimg bling-hideimg')
+Config.API.getSnap = 'test/api/get_snap.json'
+// $('body').addClass('bling-start bling-showimg bling-hideimg bling-upload')
+// $('#snapImg').attr('src', 'img/http.jpg')
 // setTimeout(function () {
-//   $('body').addClass('bling-upload')
-// }, 5000)
+//   // $('body').addClass('bling-upload')
+//   $('.page-upload').addClass('page-upload-ready')
+// }, 1000)
 
 
 var Bling = function() {
@@ -106,10 +108,20 @@ Bling.prototype.countDown = function(percent, time) {
     dif = 0;
   var loop, re_loop;
   var text, text_w;
+  var timeNum = parseInt(time/1000)
 
   $countDown = $('#countDown')
   $countDown.addClass('countDown-show')
   draw(percent, time)
+  $('.countDown-wrap .num').html(timeNum)
+  var numT = setInterval(function () {
+    timeNum--
+    if(timeNum < 1){
+      clearInterval(numT)
+      return;
+    }
+    $('.countDown-wrap .num').html(timeNum)
+  }, 1000)
 
   function init() {
     // ctx.clearRect(0,0,W,H);
@@ -176,7 +188,9 @@ Bling.prototype.loading = function(cb) {
     , $loading = $('#Loading')
     , snap = self.data.snap
     , delay = 0
+    , img = new Image()
 
+  $('#Loading').show()
   if (!(snap.snapImgUrl && /http/.test(snap.snapImgUrl)) && snap.snapImgUrl.length > 4){
     // alert('begin wx load img')
     if(!Config.isWeixinOk){
@@ -189,17 +203,18 @@ Bling.prototype.loading = function(cb) {
         success: function (res) {
           // alert('img load end')
           snap.snapImgUrl = res.localId
+          $('#Loading').hide()
           cb && cb($loading)
         }
       })
     }, delay)
   }
   else {
-    $loading.show()
-    setTimeout(function() {
-      $loading.addClass('loading-on')
-    }, 0)
-    cb && cb($loading)
+    img.onload = function() {
+      $('#Loading').hide()
+      cb && cb($loading)
+    }
+    img.src = snap.snapImgUrl
   }
 }
 
@@ -252,6 +267,26 @@ Bling.prototype.updateShare = function() {
     }
   });
 }
+Bling.prototype.showVisitors = function(data) {
+  var self = this
+    , vTpl = ''
+    , lTpl = ''
+
+  if(data.visitors.length){
+    for(var i = 0; i<data.visitors.length; i++){
+      vTpl = vTpl + '<div class="item"><img src="'+data.visitors[i].userImgUrl+'"><span class="user-name">'+data.visitors[i].nickname+'</span></div>'
+    }
+    $('#Visitors .userbox-list').html(vTpl).show()
+  }
+
+  if(data.luckyVisitors.length){
+    for(var i = 0; i<data.luckyVisitors.length; i++){
+      lTpl = lTpl +  '<div class="item"><img src="'+data.luckyVisitors[i].userImgUrl+'"><span class="user-name">'+data.luckyVisitors[i].nickname+'</span></div>'
+    }
+    $('#luckVisitors .userbox-list').html(vTpl).show()
+  }
+  
+}
 
 Bling.prototype.bindEvent = function() {
   var self = this
@@ -285,7 +320,8 @@ Bling.prototype.render = function() {
   // console.log($('.page-start .cover').length)
   // $('.page-start .cover').css({height: 'auto'})
 
-  $.get(Config.API.getSnap + curSnapId, function(data) {
+  // $.get(Config.API.getSnap + curSnapId, function(data) {
+  $.get(Config.API.getSnap, function(data) {
     //debug
     // console.log(data)
     // data = JSON.parse(data)
@@ -296,20 +332,27 @@ Bling.prototype.render = function() {
     // self.showSnap()
     // self.showSnapLuck()
     // return;
+
     console.log(data)
+
+    // var snapThumb = Config.cdnDir + 's_'+ curSnapId +'.jpg'
+    var snapThumb = 'img/test-thumb.jpg'
     switch (data.code) {
       case 1001:
         // alert('该用户已看过')
-        $('body').addClass('bling-nolook')
-        // $('.page-start .cover').css({backgroundImage: 'url('+Config.cdnDir + 's_'+ curSnapId +'.jpg)'})
+        $('html').addClass('bling-nolook')
+        $('.nolook-tips').html('傻眼了吧   来晚啦！')
+        self.showVisitors(data.data)
         console.log('该用户已看过')
         break
       case 1002:
-        alert('超过可看人数')
+        $('html').addClass('bling-nolook')
+        $('.nolook-tips').html('你已看过啦，图片已销毁了')
+        self.showVisitors(data.data)
         console.log('超过可看人数')
         break
       case 0:
-        $('.page-start .cover').css({backgroundImage: 'url('+Config.cdnDir + 's_'+ curSnapId +'.jpg)'})
+        $('.page-start .cover').css({backgroundImage: 'url('+ snapThumb +')'})
         self.data.snap = data.data
         self.loading(function () {
           self.showSnap(function() {
