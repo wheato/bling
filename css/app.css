@@ -92,12 +92,15 @@ table {
   bottom: 10%;
   left: 50%;
   margin: 0 0 0 -34px;
+  margin: 0 0 0 -68px;
 }
 .countDown-wrap .num{
     position: absolute;
     top: 0px;
     right: 0px;
     color: #cba200;
+    top: 34px;
+    right: 34px;
 }
 #countDown{
   /* display: none; */
