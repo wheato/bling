@@ -104,6 +104,9 @@ table {
   z-index: 5000;
   width: 68px;
   height: 68px;
+  /* width: 136px; */
+  /* height: 136px; */
+  /* transform: scale(0.5); */
 }
 .bling-showimg .countDown-wrap{
   display: block;
@@ -289,7 +292,7 @@ table {
 .page-upload .snapluck-guide{
     color: #cba200;
     -webkit-animation: guide-slide-down ease-in;
-    -webkit-animation-duration: 400ms;
+    -webkit-animation-duration: 800ms;
     -webkit-animation-delay: 3s;
     -webkit-animation-fill-mode: forwards;
 }
@@ -298,10 +301,15 @@ table {
         /*-webkit-transform: translateY(0);
         transform: translateY(0)*/
     }
+
+    20% {
+        -webkit-transform: translateY(20rem);
+        transform: translateY(20rem);
+    }
     
     to {
-        -webkit-transform: translateY(20rem);
-        transform: translateY(20rem)
+        -webkit-transform: translateY(20rem) scale(0.8);
+        transform: translateY(20rem) scale(0.8);
     }
 }
 
@@ -330,7 +338,7 @@ table {
 }
 .page-upload .snapluck-guide > p:nth-child(3){
     opacity: 0;
-    -webkit-animation-delay: 0.75s;
+    -webkit-animation-delay: 2s;
 
     -webkit-animation-duration: 1800ms;
     animation-duration: 1800ms;
