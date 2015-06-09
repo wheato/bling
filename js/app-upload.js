@@ -14,7 +14,7 @@ var Config = {
 //debug
 // Config.API.createSnap = '../test/api/create_snap.json'
 // Config.API.getSnap = 'test/api/get_snap.json'
-// $('body').addClass('bling-start bling-showimg')
+// $('body').addClass('bling-start bling-showimg bling-hideimg bling-upload')
 // $('#snapImg').attr('src', 'img/http.jpg')
 // setTimeout(function () {
 //   // $('body').addClass('bling-upload')
@@ -249,15 +249,13 @@ Bling.prototype.submitImg = function() {
 
 Bling.prototype.updateShare = function() {
   var self = this,
-    shareUrl,
-    snapThumb = Config.cdnDir + 's_'+ curSnapId +'.jpg'
-
+    shareUrl
   shareUrl = Config.site + '?snapimg=' + self.data.curShareId
   wx.onMenuShareAppMessage({
     title: 'bling', // 分享标题
     desc: 'bling desc', // 分享描述
     link: shareUrl, // 分享链接
-    imgUrl: snapThumb, // 分享图标
+    imgUrl: '', // 分享图标
     // type: '', // 分享类型,music、video或link，不填默认为link
     // dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
     success: function() {
@@ -312,7 +310,14 @@ Bling.prototype.bindEvent = function() {
 
 Bling.prototype.render = function() {
   var self = this,
-    curSnapId = this.getSnapId()
+    // curSnapId = this.getSnapId(),
+    isUpload = true
+
+    if(isUpload){
+      self.bindEvent()
+      $('body').addClass('bling-start bling-showimg bling-hideimg bling-upload')
+      return;
+    }
 
   if (!curSnapId) {
     return false
@@ -340,8 +345,8 @@ Bling.prototype.render = function() {
 
     console.log(data)
 
-    var snapThumb = Config.cdnDir + 's_'+ curSnapId +'.jpg'
-    // var snapThumb = 'img/test-thumb.jpg'
+    // var snapThumb = Config.cdnDir + 's_'+ curSnapId +'.jpg'
+    var snapThumb = 'img/test-thumb.jpg'
     switch (data.code) {
       case 1001:
         // alert('该用户已看过')
@@ -457,7 +462,7 @@ function checkLogin(cb) {
       if(param){
         param = '?snapimg=' + param
       }
-      location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx875c7888a7aef3f7&redirect_uri=http%3A%2F%2Fbling.treedom.cn%2Findex.html'+param+'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
+      location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx875c7888a7aef3f7&redirect_uri=http%3A%2F%2Fbling.treedom.cn%2Fupload.html'+param+'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
     }
     return false
   }

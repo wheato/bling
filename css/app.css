@@ -60,7 +60,7 @@ table {
 /* App Style
  *--------------------------------------------------------------*/
  .wrap{
-    /* height: 100%; */
+     /*height: 100%;*/
  
 }
 /* Page Start */
@@ -92,15 +92,12 @@ table {
   bottom: 10%;
   left: 50%;
   margin: 0 0 0 -34px;
-  margin: 0 0 0 -68px;
 }
 .countDown-wrap .num{
     position: absolute;
     top: 0px;
     right: 0px;
     color: #cba200;
-    top: 34px;
-    right: 34px;
 }
 #countDown{
   /* display: none; */
@@ -193,6 +190,20 @@ table {
     left: 0;
     background-size: cover;
 }
+.page-start .cover{
+    display: none;
+}
+.page-start .cover .logo-mini{
+    text-align: center;
+    margin-top: 20%;
+    position: absolute;
+    z-index: 2000;
+    width: 100%;
+}
+.page-start .cover .logo-mini > img{
+    width: 49px;
+    height: 28px;
+}
 .page-start .cover:before{
     position: absolute;
     content: '';
@@ -233,6 +244,9 @@ table {
     width: 100%;
     height: 100%;
     background-color: #000;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 .page-showimg .img-wrap > img{
     max-width: 100%;
@@ -296,7 +310,7 @@ table {
     color: #cba200;
     -webkit-animation: guide-slide-down ease-in;
     -webkit-animation-duration: 800ms;
-    -webkit-animation-delay: 3s;
+    -webkit-animation-delay: 3.5s;
     -webkit-animation-fill-mode: forwards;
 }
 @-webkit-keyframes guide-slide-down {
@@ -333,6 +347,7 @@ table {
 .page-upload .snapluck-guide > p:nth-child(2){
     opacity: 0;
     -webkit-animation-delay: 0.25s;
+    animation-delay: 0.25s;
 
     -webkit-animation-duration: 1200ms;
     animation-duration: 1200ms;
@@ -341,10 +356,10 @@ table {
 }
 .page-upload .snapluck-guide > p:nth-child(3){
     opacity: 0;
-    -webkit-animation-delay: 2s;
+    -webkit-animation-delay: 1.25s;
 
-    -webkit-animation-duration: 1800ms;
-    animation-duration: 1800ms;
+    -webkit-animation-duration: 1600ms;
+    animation-duration: 1600ms;
 
     -webkit-animation-fill-mode: forwards;
 }
@@ -352,7 +367,7 @@ table {
     color: #cba200;
     opacity: 0;
     -webkit-animation: slide-up-show cubic-bezier(0.5, 0, 0.25, 1.5),fade-in ease-in;
-     -webkit-animation-delay: 3.5s;
+     -webkit-animation-delay: 5s;
      -webkit-animation-duration: 400ms;
     -webkit-animation-fill-mode: forwards;
 }
@@ -362,7 +377,7 @@ table {
     line-height: 34px;
     opacity: 0;
      -webkit-animation: slide-up-show cubic-bezier(0.5, 0, 0.25, 1.5),fade-in ease-in;
-     -webkit-animation-delay: 4s;
+     -webkit-animation-delay: 5.2s;
      -webkit-animation-duration: 400ms;
     -webkit-animation-fill-mode: forwards;
 }
@@ -394,7 +409,7 @@ table {
     -webkit-transform: scale(0);
     -webkit-animation: camera-scale ease-in;
     -webkit-animation-duration: 800ms;
-    -webkit-animation-delay: 5s;
+    -webkit-animation-delay: 5.8s;
     -webkit-animation-fill-mode: forwards;
 }
 @-webkit-keyframes camera-scale {
@@ -421,7 +436,7 @@ table {
     opacity: 0;
     -webkit-animation: camera-core-scale ease-in;
     -webkit-animation-duration: 1000ms;
-    -webkit-animation-delay: 6s;
+    -webkit-animation-delay: 6.6s;
     -webkit-animation-fill-mode: forwards;
 }
 @-webkit-keyframes camera-core-scale {
@@ -590,7 +605,7 @@ color: #000;
     margin-top: 85px;
 }
 .nolook .userbox{
-    display: block;
+    display: none;
 }
 .nolook .userbox-title{
     font-size: 12px;
