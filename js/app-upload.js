@@ -1,13 +1,14 @@
 // Bling app.js by weishai
 
 var Config = {
-  site: 'http://bling.treedom.cn/',
-  cdnDir: 'http://bling.treedom.cn/upload/',
+  // site: 'http://bling.treedom.cn/',
+  site: 'http://cq1.treedom.cn/',
+  cdnDir: 'http://cq1.treedom.cn/upload/',
   API: {
-    createSnap: 'http://bling.treedom.cn/ajax/api/create_snap/',
-    getSnap: 'http://bling.treedom.cn/ajax/api/get_snap/',
-    getWxSign: 'http://bling.treedom.cn/ajax/weixin/sign',
-    getAuth: 'http://bling.treedom.cn/ajax/weixin/getAuth/'
+    createSnap: 'http://cq1.treedom.cn/ajax/api/create_snap/',
+    getSnap: 'http://cq1.treedom.cn/ajax/api/get_snap/',
+    getWxSign: 'http://cq1.treedom.cn/ajax/weixin/sign',
+    getAuth: 'http://cq1.treedom.cn/ajax/weixin/getAuth/'
   }
 }
 
@@ -462,7 +463,7 @@ function checkLogin(cb) {
       if(param){
         param = '?snapimg=' + param
       }
-      location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx875c7888a7aef3f7&redirect_uri=http%3A%2F%2Fbling.treedom.cn%2Fupload.html'+param+'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
+      location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx875c7888a7aef3f7&redirect_uri='+encodeURIComponent(Config.site)+'upload.html'+param+'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
     }
     return false
   }

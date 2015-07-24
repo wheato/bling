@@ -455,7 +455,17 @@ table {
         -webkit-transform: scale(1);
     }
 }
-.page-upload .btn-miniabout{}
+.page-upload .btn-miniabout{
+    width: 29px;
+    height: 29px;
+    background-image: url(../img/icon-about.png);
+    background-size: cover;
+    position: absolute;
+    left: 50%;
+    margin: 0 0 0 -14px;
+    bottom: 60px;
+    opacity: 0.8;
+}
 .page-upload .logo-footer{
     position: absolute;
     width: 49px;
@@ -649,6 +659,8 @@ color: #000;
 .bling-nolook .page-start .cover{
     display: none;
 }
+.foot-about{}
+.foot-about {}
 
 
 #Loading{

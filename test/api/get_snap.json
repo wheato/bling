@@ -1,5 +1,5 @@
 {
-  "code": 0,
+  "code": 1001,
   "data": {
     "snapId": 10000,
     "snapAuthor": {
@@ -10,7 +10,7 @@
     "snapImgId": "snapImgId",
     "snapImgUrl": "img/http.jpg",
     "snapShowTime": 5,
-    "isSnapLuck": true,
+    "isSnapLuck": false,
     "visitors": [
       {
         "uid": 1,

@@ -1,13 +1,14 @@
 // Bling app.js by weishai
 
 var Config = {
-  site: 'http://bling.treedom.cn/',
-  cdnDir: 'http://bling.treedom.cn/upload/',
+  site: 'http://cq1.treedom.cn/',
+  // site: 'http://bling.treedom.cn/',
+  cdnDir: 'http://cq1.treedom.cn/upload/',
   API: {
-    createSnap: 'http://bling.treedom.cn/ajax/api/create_snap/',
-    getSnap: 'http://bling.treedom.cn/ajax/api/get_snap/',
-    getWxSign: 'http://bling.treedom.cn/ajax/weixin/sign',
-    getAuth: 'http://bling.treedom.cn/ajax/weixin/getAuth/'
+    createSnap: 'http://cq1.treedom.cn/ajax/api/create_snap/',
+    getSnap: 'http://cq1.treedom.cn/ajax/api/get_snap/',
+    getWxSign: 'http://cq1.treedom.cn/ajax/weixin/sign',
+    getAuth: 'http://cq1.treedom.cn/ajax/weixin/getAuth/'
   }
 }
 
@@ -20,6 +21,10 @@ var Config = {
 //   // $('body').addClass('bling-upload')
 //   $('.page-upload').addClass('page-upload-ready')
 // }, 1000)
+// upload
+// $('body').addClass('bling-start bling-showimg bling-upload')
+$('body').addClass('bling-nolook')
+
 
 
 var Bling = function() {
@@ -235,6 +240,7 @@ Bling.prototype.submitImg = function() {
     success: function(res) {
       var serverId = res.serverId; // 返回图片的服务器端ID
       $.get(Config.API.createSnap + serverId, function(res) {
+        // alert('upload back: '+res.code)
         if (res.code == 0) {
           self.data.curShareId = serverId
           self.updateShare()
@@ -250,7 +256,7 @@ Bling.prototype.submitImg = function() {
 Bling.prototype.updateShare = function() {
   var self = this,
     shareUrl,
-    snapThumb = Config.cdnDir + 's_'+ curSnapId +'.jpg'
+    snapThumb = Config.cdnDir + 's_'+ self.data.curShareId +'.jpg'
 
   shareUrl = Config.site + '?snapimg=' + self.data.curShareId
   wx.onMenuShareAppMessage({
@@ -346,13 +352,13 @@ Bling.prototype.render = function() {
       case 1001:
         // alert('该用户已看过')
         $('html').addClass('bling-nolook')
-        $('.nolook-tips').html('傻眼了吧   来晚啦！')
+        $('.nolook-tips').html('你已看过啦，图片已销毁了')
         self.showVisitors(data.data)
         console.log('该用户已看过')
         break
       case 1002:
         $('html').addClass('bling-nolook')
-        $('.nolook-tips').html('你已看过啦，图片已销毁了')
+        $('.nolook-tips').html('傻眼了吧   来晚啦！')
         self.showVisitors(data.data)
         console.log('超过可看人数')
         break
@@ -457,7 +463,8 @@ function checkLogin(cb) {
       if(param){
         param = '?snapimg=' + param
       }
-      location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx875c7888a7aef3f7&redirect_uri=http%3A%2F%2Fbling.treedom.cn%2Findex.html'+param+'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
+      // location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx875c7888a7aef3f7&redirect_uri=http%3A%2F%2Fbling.treedom.cn%2Findex.html'+param+'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
+      location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx875c7888a7aef3f7&redirect_uri='+encodeURIComponent(Config.site)+param+'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
     }
     return false
   }
