@@ -638,6 +638,9 @@ color: #000;
 .userbox-list .item > img{
     display: block;
     width: 100%;
+    width: 52px;
+    height: 52px;
+    border-radius: 26px;
 }
 .userbox-list .item .user-name{
     font-size: 9px;
@@ -659,8 +662,6 @@ color: #000;
 .bling-nolook .page-start .cover{
     display: none;
 }
-.foot-about{}
-.foot-about {}
 
 
 #Loading{
