@@ -2,13 +2,13 @@
 
 var Config = {
   // site: 'http://bling.treedom.cn/',
-  site: 'http://cq1.treedom.cn/',
-  cdnDir: 'http://cq1.treedom.cn/upload/',
+  site: 'http://sbk.treedom.cn/',
+  cdnDir: 'http://sbk.treedom.cn/upload/',
   API: {
-    createSnap: 'http://cq1.treedom.cn/ajax/api/create_snap/',
-    getSnap: 'http://cq1.treedom.cn/ajax/api/get_snap/',
-    getWxSign: 'http://cq1.treedom.cn/ajax/weixin/sign',
-    getAuth: 'http://cq1.treedom.cn/ajax/weixin/getAuth/'
+    createSnap: 'http://sbk.treedom.cn/ajax/api/create_snap/',
+    getSnap: 'http://sbk.treedom.cn/ajax/api/get_snap/',
+    getWxSign: 'http://sbk.treedom.cn/ajax/weixin/sign',
+    getAuth: 'http://sbk.treedom.cn/ajax/weixin/getAuth/'
   }
 }
 

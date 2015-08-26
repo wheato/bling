@@ -1,14 +1,14 @@
 // Bling app.js by weishai
 
 var Config = {
-  site: 'http://cq1.treedom.cn/',
+  site: 'http://sbk.treedom.cn/',
   // site: 'http://bling.treedom.cn/',
-  cdnDir: 'http://cq1.treedom.cn/upload/',
+  cdnDir: 'http://sbk.treedom.cn/upload/',
   API: {
-    createSnap: 'http://cq1.treedom.cn/ajax/api/create_snap/',
-    getSnap: 'http://cq1.treedom.cn/ajax/api/get_snap/',
-    getWxSign: 'http://cq1.treedom.cn/ajax/weixin/sign',
-    getAuth: 'http://cq1.treedom.cn/ajax/weixin/getAuth/'
+    createSnap: 'http://sbk.treedom.cn/ajax/api/create_snap/',
+    getSnap: 'http://sbk.treedom.cn/ajax/api/get_snap/',
+    getWxSign: 'http://sbk.treedom.cn/ajax/weixin/sign',
+    getAuth: 'http://sbk.treedom.cn/ajax/weixin/getAuth/'
   }
 }
 
@@ -91,7 +91,7 @@ Bling.prototype.showSnap = function(cb) {
 
 Bling.prototype.showSnapLuck = function() {
   var self = this,
-    snapData = this.data.snap
+    snapData = this.data.snap;
 
   // if(!snapData.isSnapLuck){
   //   return
@@ -100,7 +100,12 @@ Bling.prototype.showSnapLuck = function() {
 
   $('body').addClass('bling-upload')
 
-}
+  //动画完成去掉logo
+  setTimeout(function(){
+    $('.logo-footer').hide();
+  }, 2000);
+
+};
 
 Bling.prototype.countDown = function(percent, time) {
   var canvas = document.getElementById('countDown');
@@ -184,10 +189,13 @@ Bling.prototype.choseImg = function() {
       // alert('chose img success')
       self.data.localImgId = res.localIds
       $('.page-upload').addClass('page-upload-ready')
-      $('#Preview').attr('src', res.localIds)
+      $('#Preview').attr('src', res.localIds);
+
+      //重新展示logo
+      $('.logo-footer').show();
     }
   })
-}
+};
 
 Bling.prototype.loading = function(cb) {
   var self = this
@@ -208,8 +216,8 @@ Bling.prototype.loading = function(cb) {
         isShowProgressTips: 1, // 默认为1，显示进度提示
         success: function (res) {
           // alert('img load end')
-          snap.snapImgUrl = res.localId
-          $('#Loading').hide()
+          snap.snapImgUrl = res.localId;
+          $('#Loading').hide();
           cb && cb($loading)
         }
       })
@@ -217,9 +225,9 @@ Bling.prototype.loading = function(cb) {
   }
   else {
     img.onload = function() {
-      $('#Loading').hide()
-      cb && cb($loading)
-    }
+      $('#Loading').hide();
+      cb && cb($loading);
+    };
     img.src = snap.snapImgUrl
   }
 }
