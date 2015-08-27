@@ -720,7 +720,58 @@ color: #000;
   justify-content: center;
 }
 
-
+/* About Style
+ *--------------------------------------------------------------*/
+.page-about{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .9);
+    display: none;
+}
+.page-about .about-content{
+    height: 295px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin: auto;
+}
+.page-about .treedom-logo{
+    text-align: center;
+}
+.page-about h3{
+    font-size: 15px;
+    text-align: center;
+    padding: 52px 0 50px;
+    line-height: 1;
+    color: #cba200;
+}
+.page-about .developers{
+    display: -webkit-box;
+    padding: 0 22px;
+    -webkit-box-pack: justify;
+}
+.page-about .developers a{
+    display: block;
+    text-align: center;
+    color: #cba200;
+    font-size: 13px;
+    text-decoration: none;
+}
+.page-about .developers a figure{
+    width: 76px;
+    height: 76px;
+}
+.page-about .developers a figure img{display: block;width: 100%;}
+.page-about .developers a span{
+    padding: 19px 0 0;
+    line-height: 1;
+    display: block;
+}
 
 /* Animate
  *--------------------------------------------------------------*/

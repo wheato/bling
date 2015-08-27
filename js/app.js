@@ -322,7 +322,17 @@ Bling.prototype.bindEvent = function() {
     e.preventDefault()
   })
 
-}
+};
+
+Bling.prototype.closeAbout = function(){
+  $('.page-about').hide();
+  $('.page-about').off('click', this.closeAbout);
+};
+
+Bling.prototype.showAbout = function(){
+  $('.page-about').show()
+      .on('click', this.closeAbout);
+};
 
 Bling.prototype.render = function() {
   var self = this,
