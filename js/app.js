@@ -98,7 +98,9 @@ Bling.prototype.showSnapLuck = function() {
   // }
   $('.snapluck-tips .author').html(snapData.snapAuthor.nickname)
 
-  $('body').addClass('bling-upload')
+  $('body').addClass('bling-upload');
+
+  $('.btn-miniabout').on('click', this.showAbout);
 
   //动画完成去掉logo
   setTimeout(function(){
