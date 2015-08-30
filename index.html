@@ -14,44 +14,43 @@
 
 <body>
   <div class="wrap">
+
+    <!-- 首页 begin -->
+
     <div id="pageStart" class="page-start">
       <h1 class="logo"><img src="./img/logo.png"></h1>
       <h2 class="logo-text"><img src="./img/logo-text.png"></h2>
       <div class="looktips">按住屏幕查看图片</div>
       <div class="nolook">
-        <div class="nolook-tips">傻眼了吧   来晚啦！</div>
+        <!--<div class="nolook-tips">傻眼了吧   来晚啦！</div>-->
         <div id="luckVisitors" class="userbox">
           <div class="userbox-title">中彩蛋的人</div>
-          <div class="userbox-list">
-            <!-- <div class="item"><img src="./img/user.png"></div>
-            <div class="item"><img src="./img/user.png"></div>
-            <div class="item"><img src="./img/user.png"></div>
-            <div class="item"><img src="./img/user.png"></div>
-            <div class="item"><img src="./img/user.png"></div>
-            <div class="item"><img src="./img/user.png"></div> -->
-          </div>
+          <div class="userbox-list"></div>
         </div>
         <div id="Visitors" class="userbox">
           <div class="userbox-title">看到的人</div>
           <div class="userbox-list">
-            <!-- <div class="item"><img src="./img/user.png"></div>
-            <div class="item"><img src="./img/user.png"></div>
-            <div class="item"><img src="./img/user.png"></div>
-            <div class="item"><img src="./img/user.png"></div>
-            <div class="item"><img src="./img/user.png"></div>
-            <div class="item"><img src="./img/user.png"></div> -->
+
           </div>
         </div>
         <div class="foot-about"><i class="icon-about"></i></div>
       </div>
       <div class="cover"><div class="logo-mini"><img src="./img/logo-text-mini-l.png"></div></div>
     </div>
+
+    <!-- 首页 end -->
+
+    <!-- 展示图片页 begin -->
     <div class="page-showimg">
       <div class="img-wrap">
         <img id="snapImg">
       </div>
     </div>
+    <!-- 展示图片页 end -->
+
     <div class="page-snapluck"></div>
+
+    <!-- 上传页面 -->
     <div class="page-upload">
       <div class="preview"><img id="Preview"></div>
       <div class="cover">
@@ -62,8 +61,8 @@
               <p>你踩了我挖的坑</p>
               <p>是朋友就照着做</p>
             </div>
+            <div class="snapluck-tips">请接受<span class="author"></span>的挑战</div>
             <div class="snapluck-type">挖鼻孔</div>
-            <div class="snapluck-tips">接受<span class="author"></span>的挑战</div>
           </div>
           <div class="btn-camera" data-upload>
             <div class="core"></div>
@@ -72,7 +71,11 @@
         <div class="upload-select">
           <div class="select-snapluck">
             <div class="select-box">
-              <span class="snapluck-value">挖鼻孔</span>
+              <ul class="snapluck-list">
+                <li class="snapluck-value">挖鼻孔1</li>
+                <li class="snapluck-value">挖鼻孔2</li>
+                <li class="snapluck-value">挖鼻孔3</li>
+              </ul>
             </div>
             <div class="select-box-tips">埋彩蛋</div>
           </div>
@@ -98,6 +101,8 @@
         <div class="logo-footer"></div>
       </div>
     </div>
+
+    <!-- 关于 -->
     <div class="page-about">
       <div class="about-content">
         <div class="treedom-logo"><img src="img/treedom_logo.png" width="84" alt=""/></div>
@@ -116,16 +121,18 @@
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="http://www.treedom.cn">
               <figure><img src="img/treedom.png" alt=""/></figure>
               <span>青木</span>
             </a>
           </li>
         </ul>
       </div>
-
     </div>
+
   </div>
+
+  <!-- 倒计时 -->
   <div class="countDown-wrap">
     <canvas id="countDown" width="136" height="136"></canvas>
     <span class="num"></span>

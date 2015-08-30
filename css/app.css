@@ -309,8 +309,8 @@ table {
 .page-upload .snapluck-guide{
     color: #cba200;
     -webkit-animation: guide-slide-down ease-in;
-    -webkit-animation-duration: 800ms;
-    -webkit-animation-delay: 3.5s;
+    -webkit-animation-duration: 500ms;
+    -webkit-animation-delay: 1s;
     -webkit-animation-fill-mode: forwards;
 }
 @-webkit-keyframes guide-slide-down {
@@ -341,43 +341,44 @@ table {
 
 }
 .page-upload .snapluck-guide > p:nth-child(1){
-    -webkit-animation-duration: 400ms;
-    animation-duration: 400ms;
+    -webkit-animation-duration: 200ms;
+    animation-duration: 200ms;
 }
 .page-upload .snapluck-guide > p:nth-child(2){
     opacity: 0;
     -webkit-animation-delay: 0.25s;
     animation-delay: 0.25s;
 
-    -webkit-animation-duration: 1200ms;
-    animation-duration: 1200ms;
+    -webkit-animation-duration: 200ms;
+    animation-duration: 200ms;
 
     -webkit-animation-fill-mode: forwards;
 }
 .page-upload .snapluck-guide > p:nth-child(3){
     opacity: 0;
-    -webkit-animation-delay: 1.25s;
+    -webkit-animation-delay: .5s;
 
-    -webkit-animation-duration: 1600ms;
-    animation-duration: 1600ms;
+    -webkit-animation-duration: 200ms;
+    animation-duration: 200ms;
 
     -webkit-animation-fill-mode: forwards;
 }
 .page-upload .snapluck-type{
     color: #cba200;
     opacity: 0;
+    line-height: 52px;
     -webkit-animation: slide-up-show cubic-bezier(0.5, 0, 0.25, 1.5),fade-in ease-in;
-     -webkit-animation-delay: 5s;
+     -webkit-animation-delay: 1.4s;
      -webkit-animation-duration: 400ms;
     -webkit-animation-fill-mode: forwards;
 }
 .page-upload .snapluck-tips{
     color: #cba200;
     font-size: 12px;
-    line-height: 34px;
+    line-height: 1;
     opacity: 0;
      -webkit-animation: slide-up-show cubic-bezier(0.5, 0, 0.25, 1.5),fade-in ease-in;
-     -webkit-animation-delay: 5.2s;
+     -webkit-animation-delay: 1.2s;
      -webkit-animation-duration: 400ms;
     -webkit-animation-fill-mode: forwards;
 }
@@ -409,7 +410,7 @@ table {
     -webkit-transform: scale(0);
     -webkit-animation: camera-scale ease-in;
     -webkit-animation-duration: 800ms;
-    -webkit-animation-delay: 5.8s;
+    -webkit-animation-delay: 1.8s;
     -webkit-animation-fill-mode: forwards;
 }
 @-webkit-keyframes camera-scale {
@@ -436,7 +437,7 @@ table {
     opacity: 0;
     -webkit-animation: camera-core-scale ease-in;
     -webkit-animation-duration: 1000ms;
-    -webkit-animation-delay: 6.6s;
+    -webkit-animation-delay: 2.6s;
     -webkit-animation-fill-mode: forwards;
 }
 @-webkit-keyframes camera-core-scale {
@@ -498,6 +499,11 @@ table {
     width: 144px;
     margin: 0 auto 12px;
     position: relative;
+    height: 30px;
+    overflow: hidden;
+}
+.upload-select .select-box .snapluck-list{
+    -webkit-transition: -webkit-transform .5s ease;
 }
 .upload-select .select-box-tips{
     text-align: center;
@@ -516,13 +522,12 @@ table {
 }
 .upload-select .select-box:after{
     content: '';
-position: absolute;
-width: 6px;
-height: 10px;
-background: url(../img/icon-arrow.png) no-repeat 0 0;
-background-size: 100%;
--webkit-transform: rotate(-180deg);
-
+    position: absolute;
+    width: 6px;
+    height: 10px;
+    background: url(../img/icon-arrow.png) no-repeat 0 0;
+    background-size: 100%;
+    -webkit-transform: rotate(-180deg);
     right: 0px;
     top: 10px;
 }
@@ -730,6 +735,7 @@ color: #000;
     height: 100%;
     background: rgba(0, 0, 0, .9);
     display: none;
+    z-index: 999;
 }
 .page-about .about-content{
     height: 295px;
