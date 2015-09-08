@@ -24,8 +24,8 @@ Bling.prototype.init = function() {
 
   this.data = {};
 
-  this.data.luckyItems = ["挖鼻孔1", "挖鼻孔2", "挖鼻孔3"];
-
+  this.data.luckyItems = ["挖鼻孔", "秀肌肉", "亲一下"];
+  this.data.currentLucky = 0;
   this.render();
 
 };
@@ -49,6 +49,7 @@ Bling.prototype.showSnap = function(cb) {
   var self = this,
     $body = $('body'),
     snapData = this.data.snap,
+    countDown = null,
     isHideImg = false;
 
   $body.addClass('bling-start').one('touchstart', function(e) {
@@ -79,7 +80,7 @@ Bling.prototype.showSnap = function(cb) {
 
     $body.addClass('bling-showimg').find('#snapImg').attr('src', url);
 
-    self.countDown(1, time * 1000);
+    countDown = new self.countDown(1, time * 1000);
 
     return true;
 
@@ -93,18 +94,22 @@ Bling.prototype.showSnap = function(cb) {
 
     $body.addClass('bling-hideimg');
 
-    $('#countDown').hide();
+    $('#countDown').hide().siblings('span').html('');
 
     isHideImg = true;
 
-    alert(snapData.isSnapLuck);
     if(snapData.isSnapLuck){  //是否中彩蛋
 
       cb && cb();
 
     } else {
 
+      //还原之前的
+      $('.page-start').css('opacity', 0);
       $body.removeClass('bling-showimg').removeClass('bling-start');
+      $body.find('#snapImg').attr('src', '');
+      $('.page-start .cover').css({backgroundImage: 'none'}).hide();
+      countDown && countDown.stop();
       self.render();
 
     }
@@ -119,17 +124,17 @@ Bling.prototype.showSnapLuck = function() {
     snapData = this.data.snap;
 
   $('.snapluck-tips .author').html(snapData.snapAuthor.nickname);
-  $('.snapluck-type').html(data.luckyItems[self.data.currentLucky]); //展示lucky页
+  $('.snapluck-type').html(self.data.luckyItems[self.data.currentLucky]); //展示lucky页
 
   $('body').addClass('bling-upload');
 
   $('.btn-miniabout').show().on('click', this.showAbout);
 
 
-  //动画完成去掉logo
-  setTimeout(function(){
-    $('.logo-footer').hide();
-  }, 800);
+  ////动画完成去掉logo
+  //setTimeout(function(){
+  //  $('.logo-footer').hide();
+  //}, 800);
 
 };
 
@@ -203,7 +208,14 @@ Bling.prototype.countDown = function(percent, time) {
       init();
     }
     //re_loop = setInterval(draw,2000);
-}
+
+  function stop(){
+    clearInterval(numT);
+    $('#countDown .num').remove();
+  }
+
+  return {stop: stop};
+};
 
 Bling.prototype.choseImg = function() {
 
@@ -216,7 +228,7 @@ Bling.prototype.choseImg = function() {
       $('.page-upload').addClass('page-upload-ready');
       $('#Preview').attr('src', res.localIds);
 
-      $('.logo-footer').show();   //重新展示logo
+      //$('.logo-footer').show();   //重新展示logo
       $('.btn-miniabout').hide();  //隐藏查看About页的按钮
 
       self.choseLucky();  //选择彩蛋类型
@@ -229,12 +241,12 @@ Bling.prototype.loading = function(cb) {
   var self = this
     , $loading = $('#Loading')
     , snap = self.data.snap
-    , delay = 0
+    , delay = 10
     , img = new Image();
 
   $('#Loading').show();
 
-  if (!(snap.snapImgUrl && /http/.test(snap.snapImgUrl)) && snap.snapImgUrl.length > 4){
+  if (!!(snap.snapImgUrl && /http/.test(snap.snapImgUrl)) && snap.snapImgUrl.length > 4){
 
     if(!Config.isWeixinOk){
       delay = 500
@@ -242,11 +254,12 @@ Bling.prototype.loading = function(cb) {
 
     setTimeout(function () {
 
+      console.log(snap.serverId);
       wx.downloadImage({
         serverId: snap.snapImgId,
         isShowProgressTips: 1, // 默认为1，显示进度提示
         success: function (res) {
-
+          console.log(res);
           snap.snapImgUrl = res.localId;
           $('#Loading').hide();
           cb && cb($loading);
@@ -275,13 +288,16 @@ Bling.prototype.choseLucky = function(){
   var $select = $('.select-box'),
       $selectList = $select.find('.snapluck-list'),
       length = $selectList.find('li').length,
-      current = 0;
+      current = 0,
+      self = this,
       lock = false;
+
+  self.data.currentLucky = 0;
 
   $select.on('click', function(){
     lock = true;
-    this.data.currentLucky = current;
     next();
+    self.data.currentLucky = current;
   });
 
   $selectList.on('webkitTransitionEnd', function(){
@@ -289,13 +305,12 @@ Bling.prototype.choseLucky = function(){
   });
 
   function next(){
-    current ++;
-    if(current == length - 1){
+    current++;
+    if(current == length){
       current = 0;
     }
 
-    $selectList.get(0).style.webkitTransform = 'translateY(' + current * 30 + 'px);';
-
+    $selectList.css('-webkit-transform', 'translateY(' + current * -30 + 'px);');
   }
 };
 
@@ -308,8 +323,10 @@ Bling.prototype.submitImg = function() {
     // alert(localImgId)
   if (!localImgId) {
     alert('还没选择图片');
-    return false
+    return false;
   }
+
+  self.choseLucky();
 
   wx.uploadImage({
     localId: localImgId, // 需要上传的图片的本地ID，由chooseImage接口获得
@@ -320,11 +337,13 @@ Bling.prototype.submitImg = function() {
         // alert('upload back: '+res.code)
         if (res.code == 0) {
           self.data.curShareId = serverId;
-          alert('提交成功，可以分享了');
-          self.updateShare();
+          self.showShareTips();
+          setTimeout(function(){
+            self.updateShare();
+          }, 500);
           //Todo: 提示分享浮层
         } else {
-          alert('提交失败，稍后再试')
+          alert('提交失败，稍后再试');
         }
       })
     }
@@ -335,10 +354,10 @@ Bling.prototype.submitImg = function() {
 Bling.prototype.updateShare = function() {
   var self = this,
     shareUrl,
-    luckyid = self.data.currentLucky,
+    luckyid = this.data.currentLucky,
     snapThumb = Config.cdnDir + 's_'+ self.data.curShareId +'.jpg';
 
-  shareUrl = Config.site + '?snapimg=' + self.data.curShareId + '&luckid=' + luckyid;
+  shareUrl = Config.site + '?snapimg=' + self.data.curShareId + '&luckyid=' + luckyid;
 
   wx.onMenuShareAppMessage({
     title: 'bling', // 分享标题
@@ -349,7 +368,7 @@ Bling.prototype.updateShare = function() {
     // dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
     success: function() {
       // 用户确认分享后执行的回调函数
-      alert('已分享给朋友');
+      //alert('已分享给朋友');
     },
     cancel: function() {
       alert('取消分享朋友');
@@ -401,12 +420,15 @@ Bling.prototype.bindEvent = function() {
 };
 
 Bling.prototype.showAbout = function(){
-  var $about = $('.page-about');
+  var $about = $('.page-about'),
+      $button = $about.find('.close-pop');
   $about.show();
   $about.on('click', close);
+  //$button.on('click', close);
   function close(){
     $about.hide();
     $about.off('click', close);
+    //$button.off('click', close);
   }
 };
 
@@ -414,8 +436,8 @@ Bling.prototype.render = function() {
   var self = this,
     curSnapId = this.getSnapId();
 
-  self.data.currentLucky = self.getLuckyId();
-  self.data.currentLucky = self.data.currentLucky ? self.data.currentLucky : 0;
+  this.data.currentLucky = this.getLuckyId();
+  this.data.currentLucky = this.data.currentLucky != 'undefined' ? this.data.currentLucky : 0;
 
   if (!curSnapId) {
     return false
@@ -427,6 +449,9 @@ Bling.prototype.render = function() {
 
     var snapThumb = Config.cdnDir + 's_'+ curSnapId +'.jpg';
     // var snapThumb = 'img/test-thumb.jpg'
+
+
+
     switch (data.code) {
 
       case 1001:
@@ -434,6 +459,7 @@ Bling.prototype.render = function() {
         $('html').addClass('bling-nolook');
         $('.nolook-tips').html('你已看过啦，图片已销毁了');
         self.showVisitors(data.data);
+        $('.page-start').css('opacity', 1);
         console.log('该用户已看过');
         break;
 
@@ -441,11 +467,15 @@ Bling.prototype.render = function() {
         $('html').addClass('bling-nolook');
         $('.nolook-tips').html('傻眼了吧   来晚啦！');
         self.showVisitors(data.data);
+        $('.page-start').css('opacity', 1);
         console.log('超过可看人数');
         break;
 
       case 0:
         $('.page-start .cover').css({backgroundImage: 'url('+ snapThumb +')'}).show();
+        setTimeout(function(){
+          $('.page-start').css('opacity', 1);
+        }, 200);
         self.data.snap = data.data;
         self.loading(function () {
           self.showSnap(function() {
@@ -461,6 +491,14 @@ Bling.prototype.render = function() {
   }, 'json');
 
   self.bindEvent();
+};
+
+Bling.prototype.showShareTips = function(){
+
+  var $tips = $('.tips-share');
+
+  $tips.show();
+
 };
 
 var App = new Bling();

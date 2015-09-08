@@ -10,6 +10,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="stylesheet" type="text/css" href="./css/app.css">
+  <script src="js/debuggap.js?10.99.120.120:11111"></script>
 </head>
 
 <body>
@@ -22,7 +23,7 @@
       <h2 class="logo-text"><img src="./img/logo-text.png"></h2>
       <div class="looktips">按住屏幕查看图片</div>
       <div class="nolook">
-        <!--<div class="nolook-tips">傻眼了吧   来晚啦！</div>-->
+        <div class="nolook-tips"></div>
         <div id="luckVisitors" class="userbox">
           <div class="userbox-title">中彩蛋的人</div>
           <div class="userbox-list"></div>
@@ -30,12 +31,11 @@
         <div id="Visitors" class="userbox">
           <div class="userbox-title">看到的人</div>
           <div class="userbox-list">
-
           </div>
         </div>
         <div class="foot-about"><i class="icon-about"></i></div>
       </div>
-      <div class="cover"><div class="logo-mini"><img src="./img/logo-text-mini-l.png"></div></div>
+      <div class="cover"><div class="logo-mini"><img src="./img/big-logo.png"></div></div>
     </div>
 
     <!-- 首页 end -->
@@ -72,16 +72,16 @@
           <div class="select-snapluck">
             <div class="select-box">
               <ul class="snapluck-list">
-                <li class="snapluck-value">挖鼻孔1</li>
-                <li class="snapluck-value">挖鼻孔2</li>
-                <li class="snapluck-value">挖鼻孔3</li>
+                <li class="snapluck-value">挖鼻孔</li>
+                <li class="snapluck-value">秀肌肉</li>
+                <li class="snapluck-value">亲一下</li>
               </ul>
             </div>
             <div class="select-box-tips">埋彩蛋</div>
           </div>
           <div class="option-snapluck">
             <div class="btn-option option-time">
-              <span class="num">5</span>
+              <span class="num">5<sup>s</sup></span>
               <span class="name">时间</span>
             </div>
             <div class="partline"><i class="icon-x"></i></div>
@@ -104,6 +104,7 @@
 
     <!-- 关于 -->
     <div class="page-about">
+      <div class="close-pop"></div>
       <div class="about-content">
         <div class="treedom-logo"><img src="img/treedom_logo.png" width="84" alt=""/></div>
         <h3>开发团队</h3>
@@ -137,6 +138,11 @@
     <canvas id="countDown" width="136" height="136"></canvas>
     <span class="num"></span>
   </div>
+
+  <div class="tips-share">
+    <div class="tips"></div>
+  </div>
+
   <!-- <div id="countDown"><div class="loader"></div></div> -->
   <div id="Loading"><div class="wrap"></div><div class="text">Loading</div></div>
   <script type="text/javascript" src="./js/zepto.min.js"></script>

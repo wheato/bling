@@ -190,19 +190,23 @@ table {
     left: 0;
     background-size: cover;
 }
+.page-start{
+    opacity: 0;
+}
 .page-start .cover{
     display: none;
 }
 .page-start .cover .logo-mini{
     text-align: center;
-    margin-top: 20%;
+    top: 50%;
+    margin-top: -100px;
     position: absolute;
     z-index: 2000;
     width: 100%;
 }
 .page-start .cover .logo-mini > img{
-    width: 49px;
-    height: 28px;
+    width: 75px;
+    height: 43px;
 }
 .page-start .cover:before{
     position: absolute;
@@ -218,14 +222,19 @@ table {
 .bling-start .looktips{
     opacity: 1;
     text-align: center;
-    margin: 20%;
-    color: #9385B8;
     color: #ffcc00;
     position: absolute;
     z-index: 2000;
-    margin: 0;
-    width: 100%;
-    top: 68%;
+    left: 0;
+    right: 0;
+    height: 44px;
+    width: 176px;
+    line-height: 44px;
+    border: 1px solid #ffcc00;
+    top: 50%;
+    margin: 67px auto 0;
+    -webkit-border-radius: 22px;
+    border-radius: 22px;
 }
 
 .bling-showimg .page-start{
@@ -308,9 +317,9 @@ table {
 }
 .page-upload .snapluck-guide{
     color: #cba200;
-    -webkit-animation: guide-slide-down ease-in;
+    -webkit-animation: fade-out ease-in;
     -webkit-animation-duration: 500ms;
-    -webkit-animation-delay: 1s;
+    -webkit-animation-delay: 1.6s;
     -webkit-animation-fill-mode: forwards;
 }
 @-webkit-keyframes guide-slide-down {
@@ -368,7 +377,7 @@ table {
     opacity: 0;
     line-height: 52px;
     -webkit-animation: slide-up-show cubic-bezier(0.5, 0, 0.25, 1.5),fade-in ease-in;
-     -webkit-animation-delay: 1.4s;
+     -webkit-animation-delay: 2200ms;
      -webkit-animation-duration: 400ms;
     -webkit-animation-fill-mode: forwards;
 }
@@ -378,7 +387,7 @@ table {
     line-height: 1;
     opacity: 0;
      -webkit-animation: slide-up-show cubic-bezier(0.5, 0, 0.25, 1.5),fade-in ease-in;
-     -webkit-animation-delay: 1.2s;
+     -webkit-animation-delay: 2000ms;
      -webkit-animation-duration: 400ms;
     -webkit-animation-fill-mode: forwards;
 }
@@ -396,10 +405,11 @@ table {
 .page-upload .snapluck-tips .author{
     display: inline-block;
     margin: 0 3px;
+    color: #cba200;
 }
 .page-upload .btn-camera{
     position: absolute;
-     background: url(../img/icon-camera-wrap.png) no-repeat 0; 
+    background: url(../img/icon-camera-wrap.png) no-repeat 0;
     width: 46px;
     height: 34px;
     background-size: 100%;
@@ -410,7 +420,7 @@ table {
     -webkit-transform: scale(0);
     -webkit-animation: camera-scale ease-in;
     -webkit-animation-duration: 800ms;
-    -webkit-animation-delay: 1.8s;
+    -webkit-animation-delay: 800ms;
     -webkit-animation-fill-mode: forwards;
 }
 @-webkit-keyframes camera-scale {
@@ -423,7 +433,7 @@ table {
         opacity: 1;
         -webkit-transform: scale(1.2);
     }
-    
+
     to {
         -webkit-transform: scale(1);
     }
@@ -437,20 +447,15 @@ table {
     opacity: 0;
     -webkit-animation: camera-core-scale ease-in;
     -webkit-animation-duration: 1000ms;
-    -webkit-animation-delay: 2.6s;
+    -webkit-animation-delay: 1s;
     -webkit-animation-fill-mode: forwards;
 }
 @-webkit-keyframes camera-core-scale {
     from {
         opacity: 0.5;
-        -webkit-transform: scale(3);
+        -webkit-transform: scale(0);
     }
 
-    50% {
-        opacity: 1;
-        -webkit-transform: scale(0.8);
-    }
-    
     to {
         opacity: 1;
         -webkit-transform: scale(1);
@@ -464,7 +469,7 @@ table {
     position: absolute;
     left: 50%;
     margin: 80px 0 0 -25px;
-    top: 50%;
+    bottom: 65px;
     opacity: 0.8;
 }
 .page-upload .logo-footer{
@@ -545,12 +550,21 @@ table {
     font-size: 0;
 }
 .upload-select .option-snapluck .btn-option{
-    width: 60px;
-    height: 60px;
-    border: 1px solid #cba200;
-    border-radius: 32px;
+    width: 64px;
+    height: 64px;
     display: inline-block;
-    padding: 1px;
+    color: rgba(0, 0, 0, 0);
+    font-size: 0;
+}
+.upload-select .option-snapluck .option-time{
+    background: url(../img/icon-time-5s.png) no-repeat;
+    -webkit-background-size: 64px 64px;
+    background-size: 64px 64px;
+}
+.upload-select .option-snapluck .option-count{
+    background: url(../img/icon-times-20p.png) no-repeat;
+    -webkit-background-size: 64px 64px;
+    background-size: 64px 64px;
 }
 .upload-select .option-snapluck .num{
     display: block;
@@ -558,6 +572,10 @@ table {
     line-height: 30px;
     padding: 8px 0 6px;
     text-align: center;
+}
+.upload-select .option-snapluck .num sup{
+    font-size: 18px;
+    vertical-align: top;
 }
 .upload-select .option-snapluck .name{
     font-size: 9px;
@@ -710,19 +728,17 @@ color: #000;
 }
 #Loading .text{
   font-size: 9px;
+  line-height: 1;
+  height: 9px;
   color: #ffcc00;
   position: absolute;
   left: 0;
   top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
   width: 100%;
-  height: 100%;
   text-align: center;
-  display: -webkit-flex;   
-  display: flex;
-  -webkit-align-items: center;   
-  align-items: center;
-  -webkit-justify-content: center;
-  justify-content: center;
 }
 
 /* About Style
@@ -778,7 +794,37 @@ color: #000;
     line-height: 1;
     display: block;
 }
+.page-about .close-pop{
+    height: 38px;
+    width: 38px;
+    position: absolute;
+    background: url(../img/close-pop.png) center no-repeat;
+    -webkit-background-size: 18px auto;
+    background-size: 18px auto;
+    top: 11px;
+    right: 11px;
+}
 
+.tips-share{
+    position: fixed;
+    z-index: 10000;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: rgba(0, 0, 0, .9);
+    display: none;
+}
+.tips-share .tips{
+    position: absolute;
+    width: 242px;
+    height: 370px;
+    background: url(../img/share_tips.png) no-repeat;
+    -webkit-background-size: 242px auto;
+    background-size: 242px auto;
+    top: 31px;
+    right: 25px;
+}
 /* Animate
  *--------------------------------------------------------------*/
  @-webkit-keyframes fade-in {
@@ -803,21 +849,21 @@ color: #000;
 
 @-webkit-keyframes fade-out {
     from {
-        opacity: 0
+        opacity: 1
     }
     
     to {
-        opacity: 1
+        opacity: 0
     }
 }
 
 @keyframes fade-out {
     from {
-        opacity: 0
+        opacity: 1
     }
     
     to {
-        opacity: 1
+        opacity: 0
     }
 }
 
